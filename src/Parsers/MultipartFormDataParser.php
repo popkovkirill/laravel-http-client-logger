@@ -6,7 +6,7 @@ class MultipartFormDataParser
 {
     public function parse(string $body, string $boundary): array
     {
-        if (!$boundary) {
+        if (! $boundary) {
             return [];
         }
 
@@ -15,7 +15,7 @@ class MultipartFormDataParser
         $boundaryPattern = sprintf("/(\r\n)?--%s\s*?(\r\n)?/", preg_quote($boundary, '/'));
         $parts = preg_split($boundaryPattern, $body);
 
-        if (!is_array($parts)) {
+        if (! is_array($parts)) {
             return [];
         }
 
@@ -36,7 +36,7 @@ class MultipartFormDataParser
             $headers = $this->parseHeaders($headers);
             $disposition = $headers['content-disposition'] ?? null;
 
-            if ($disposition === null || !$disposition->isFormData()) {
+            if ($disposition === null || ! $disposition->isFormData()) {
                 continue;
             }
 
@@ -45,6 +45,7 @@ class MultipartFormDataParser
 
             if ($filename = $disposition->getKeyValue('filename')) {
                 $params[$name] = "$filename (file)";
+
                 continue;
             }
 
@@ -54,9 +55,7 @@ class MultipartFormDataParser
         return $params;
     }
 
-
     /**
-     * @param string $headerData
      * @return HeaderLine[]
      */
     private function parseHeaders(string $headerData): array

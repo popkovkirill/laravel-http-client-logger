@@ -20,7 +20,7 @@ final class HttpLoggerMiddleware
     }
 
     protected function logging(RequestInterface $request,
-                               ResponseInterface $response = null): void
+        ?ResponseInterface $response = null): void
     {
         $message = $this->formatter->getMessage($request, $response);
         $context = array_merge($this->context, $this->formatter->getContext($request, $response));
@@ -32,13 +32,14 @@ final class HttpLoggerMiddleware
     {
         return function (ResponseInterface $response) use ($request) {
             $this->logging($request, $response);
+
             return $response;
         };
     }
 
     protected function onFailure(RequestInterface $request): callable
     {
-        return function(GuzzleException $exception) use ($request) {
+        return function (GuzzleException $exception) use ($request) {
             $response = $exception instanceof RequestException ? $exception->getResponse() : null;
             $this->logging($request, $response);
             throw $exception;
