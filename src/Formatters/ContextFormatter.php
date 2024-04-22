@@ -17,10 +17,11 @@ class ContextFormatter implements FormatterInterface
     public function getMessage(RequestInterface $request, ?ResponseInterface $response = null): string
     {
         return sprintf(
-            '%s %s %s',
+            '%s %s %s: %s',
             $request->getMethod(),
             $request->getUri(),
-            $response?->getStatusCode() ?: 0
+            $response?->getStatusCode() ?: 0,
+            $response?->getReasonPhrase() ?: 'Nothing'
         );
     }
 

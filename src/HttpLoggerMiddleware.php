@@ -9,6 +9,7 @@ use Keerill\HttpLogger\Formatters\FormatterInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 final class HttpLoggerMiddleware
 {
@@ -25,7 +26,11 @@ final class HttpLoggerMiddleware
         $message = $this->formatter->getMessage($request, $response);
         $context = array_merge($this->context, $this->formatter->getContext($request, $response));
 
-        $this->logger->info($message, $context);
+        $statusCode = $response?->getStatusCode() ?: 0;
+        $isSuccessful = $statusCode >= 200 && $statusCode < 300;
+
+        $this->logger
+            ->log($isSuccessful ? LogLevel::INFO : LogLevel::ERROR, $message, $context);
     }
 
     protected function onSuccess(RequestInterface $request): callable
