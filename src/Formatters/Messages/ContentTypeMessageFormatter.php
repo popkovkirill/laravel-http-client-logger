@@ -6,7 +6,6 @@ use Psr\Http\Message\MessageInterface;
 
 class ContentTypeMessageFormatter implements MessageFormatterInterface
 {
-
     public function getContent(MessageInterface $message): mixed
     {
         $contentType = $message->getHeader('Content-Type')[0] ?? null;

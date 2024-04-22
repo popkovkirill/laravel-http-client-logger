@@ -38,7 +38,7 @@ class ContextFormatter implements FormatterInterface
                 'response' => [
                     'headers' => $this->formatingHeaders($response->getHeaders()),
                     'content' => $this->messageFormatter
-                        ->getContent($response)
+                        ->getContent($response),
                 ],
             ];
         }
