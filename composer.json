@@ -21,7 +21,6 @@
         "illuminate/contracts": "^10.0||^11.0"
     },
     "require-dev": {
-        "beste/psr-testlogger": "^1.0",
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.1.1||^7.10.0",
         "orchestra/testbench": "^9.0.0||^8.22.0",
@@ -63,16 +62,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Keerill\\HttpLogger\\HttpLoggerServiceProvider"
-            ],
-            "aliases": {
-                "HttpLogger": "Keerill\\HttpLogger\\Facades\\HttpLogger"
-            }
         }
     },
     "minimum-stability": "dev",
