@@ -19,5 +19,5 @@ it('can formatter headers', function (
     ['visible-header', 'value', 'value', ['visible-header']],
     ['not-visible-header', 'value', null, ['visible-header']],
     ['excepted-visible-header', 'value', null, ['*'], ['excepted-visible-header']],
-    ['header', 'value', 'value']
+    ['header', 'value', 'value'],
 ]);

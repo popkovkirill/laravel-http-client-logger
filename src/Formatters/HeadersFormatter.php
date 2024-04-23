@@ -16,13 +16,15 @@ class HeadersFormatter
 
     public function only(array $only = ['*']): self
     {
-        $this->visible = array_map(fn(string $value) => trim(strtolower($value)), $only);
+        $this->visible = array_map(fn (string $value) => trim(strtolower($value)), $only);
+
         return $this;
     }
 
     public function except(array $except = []): self
     {
-        $this->except = array_map(fn(string $value) => trim(strtolower($value)), $except);
+        $this->except = array_map(fn (string $value) => trim(strtolower($value)), $except);
+
         return $this;
     }
 
@@ -33,7 +35,7 @@ class HeadersFormatter
         foreach ($headers as $header => $values) {
             $header = trim(strtolower($header));
 
-            if (!$this->isVisible($header)) {
+            if (! $this->isVisible($header)) {
                 continue;
             }
 
@@ -50,7 +52,7 @@ class HeadersFormatter
     private function isVisible(string $header): bool
     {
         if ($this->visible == ['*'] || in_array($header, $this->visible)) {
-            return !in_array($header, $this->except);
+            return ! in_array($header, $this->except);
         }
 
         return false;
