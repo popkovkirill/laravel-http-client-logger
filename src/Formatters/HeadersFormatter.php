@@ -5,7 +5,7 @@ namespace Keerill\HttpLogger\Formatters;
 class HeadersFormatter
 {
     public function __construct(
-        protected array $hiddenHeaders = ['authorization'],
+        protected array $hiddenHeaders = ['authorization', 'cookie', 'set-cookie'],
         protected string $stub = '****'
     ) {
     }
