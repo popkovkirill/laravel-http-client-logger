@@ -11,8 +11,7 @@ class ContextFormatter implements FormatterInterface
     public function __construct(
         protected HeadersFormatter $headersFormatter = new HeadersFormatter,
         protected ContentTypeMessageFormatter $messageFormatter = new ContentTypeMessageFormatter,
-    ) {
-    }
+    ) {}
 
     public function getMessage(RequestInterface $request, ?ResponseInterface $response = null): string
     {
