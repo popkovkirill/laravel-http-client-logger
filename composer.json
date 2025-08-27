@@ -1,16 +1,19 @@
 {
     "name": "keerill/laravel-http-client-logger",
-    "description": "This is my package laravel-http-client-logger",
+    "description": "Logger Request and responses HTTP client for laravel",
     "keywords": [
         "Keerill",
         "laravel",
-        "laravel-http-client-logger"
+        "laravel-http-client-logger",
+        "log",
+        "logging",
+        "psr3"
     ],
     "homepage": "https://github.com/keerill/laravel-http-client-logger",
     "license": "MIT",
     "authors": [
         {
-            "name": "kEERill",
+            "name": "Kirill Popkov",
             "email": "i@popkovkirill.ru",
             "role": "Developer"
         }
@@ -18,7 +21,7 @@
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
-        "illuminate/contracts": "^10.0||^11.0"
+        "illuminate/contracts": "^10.0||^11.0||^12.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
