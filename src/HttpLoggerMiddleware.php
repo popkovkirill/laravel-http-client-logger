@@ -17,7 +17,8 @@ final class HttpLoggerMiddleware
         protected LoggerInterface $logger,
         protected FormatterInterface $formatter,
         protected array $context = []
-    ) {}
+    ) {
+    }
 
     protected function logging(RequestInterface $request, ?ResponseInterface $response = null): void
     {

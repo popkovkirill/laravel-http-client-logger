@@ -10,9 +10,10 @@ use Psr\Http\Message\ResponseInterface;
 class ContextFormatter implements FormatterInterface
 {
     public function __construct(
-        protected HeadersFormatter $headersFormatter = new HeadersFormatter,
-        protected MessageFormatterInterface $messageFormatter = new ContentTypeMessageFormatter,
-    ) {}
+        protected HeadersFormatter $headersFormatter = new HeadersFormatter(),
+        protected MessageFormatterInterface $messageFormatter = new ContentTypeMessageFormatter(),
+    ) {
+    }
 
     public function getMessage(RequestInterface $request, ?ResponseInterface $response = null): string
     {
