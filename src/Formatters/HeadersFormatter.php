@@ -11,8 +11,7 @@ class HeadersFormatter
     public function __construct(
         protected array $hidden = ['authorization', 'cookie', 'set-cookie'],
         protected string $stub = '****'
-    ) {
-    }
+    ) {}
 
     public function only(array $only = ['*']): self
     {

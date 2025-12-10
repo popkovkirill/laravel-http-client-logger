@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Keerill\HttpLogger\Formatters\ContextFormatter;
 use Keerill\HttpLogger\HttpLoggerMiddleware;
+use Psr\Log\NullLogger;
 
 it('test logging success request', function () {
-    Log::shouldReceive('log')
+    Http::fake(['http://microservice/api/v1/healthcheck' => Http::response(['data' => 'OK'])]);
+
+    $logger = Mockery::mock(NullLogger::class)
+        ->shouldReceive('log')
         ->withArgs(function ($level, $message, $context) {
             expect($level)
                 ->toBe('info')
@@ -20,12 +23,8 @@ it('test logging success request', function () {
             return true;
         });
 
-    Http::fake([
-        'http://microservice/api/v1/healthcheck' => Http::response(['data' => 'OK']),
-    ]);
-
     $response = Http::baseUrl('http://microservice/api/v1')
-        ->withMiddleware(new HttpLoggerMiddleware(logger(), new ContextFormatter()))
+        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter))
         ->post('/healthcheck', ['test' => 'message'])
         ->json();
 
@@ -34,7 +33,10 @@ it('test logging success request', function () {
 });
 
 it('test logging error request', function () {
-    Log::shouldReceive('log')
+    Http::fake(['http://microservice/api/v1/healthcheck' => Http::response(['data' => 'Not Found'], 404)]);
+
+    $logger = Mockery::mock(NullLogger::class)
+        ->shouldReceive('log')
         ->withArgs(function ($level, $message, $context) {
             expect($level)
                 ->toBe('error')
@@ -48,12 +50,8 @@ it('test logging error request', function () {
             return true;
         });
 
-    Http::fake([
-        'http://microservice/api/v1/healthcheck' => Http::response(['data' => 'Not Found'], 404),
-    ]);
-
     $response = Http::baseUrl('http://microservice/api/v1')
-        ->withMiddleware(new HttpLoggerMiddleware(logger(), new ContextFormatter()))
+        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter))
         ->post('/healthcheck', ['test' => 'message'])
         ->json();
 
