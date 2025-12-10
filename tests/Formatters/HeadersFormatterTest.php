@@ -3,7 +3,12 @@
 use Keerill\HttpLogger\Formatters\HeadersFormatter;
 
 it('can formatter headers', function (
-    string $header, string $value, ?string $expected, array $only = ['*'], array $except = []) {
+    string $header,
+    string $value,
+    ?string $expected,
+    array $only = ['*'],
+    array $except = []
+) {
     $headersFormatter = (new HeadersFormatter())
         ->only($only)
         ->except($except);

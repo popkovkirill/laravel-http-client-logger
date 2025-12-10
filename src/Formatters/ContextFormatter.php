@@ -3,6 +3,7 @@
 namespace Keerill\HttpLogger\Formatters;
 
 use Keerill\HttpLogger\Formatters\Messages\ContentTypeMessageFormatter;
+use Keerill\HttpLogger\Formatters\Messages\MessageFormatterInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -10,7 +11,7 @@ class ContextFormatter implements FormatterInterface
 {
     public function __construct(
         protected HeadersFormatter $headersFormatter = new HeadersFormatter(),
-        protected ContentTypeMessageFormatter $messageFormatter = new ContentTypeMessageFormatter(),
+        protected MessageFormatterInterface $messageFormatter = new ContentTypeMessageFormatter(),
     ) {
     }
 
