@@ -9,8 +9,9 @@ use Psr\Http\Message\MessageInterface;
 class FormDataMessageFormatter implements MessageFormatterInterface
 {
     public function __construct(
-        protected MultipartFormDataParser $parser = new MultipartFormDataParser
-    ) {}
+        protected MultipartFormDataParser $parser = new MultipartFormDataParser()
+    ) {
+    }
 
     public function getContent(MessageInterface $message): array
     {

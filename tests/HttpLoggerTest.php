@@ -24,7 +24,7 @@ it('test logging success request', function () {
         });
 
     $response = Http::baseUrl('http://microservice/api/v1')
-        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter))
+        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter()))
         ->post('/healthcheck', ['test' => 'message'])
         ->json();
 
@@ -51,7 +51,7 @@ it('test logging error request', function () {
         });
 
     $response = Http::baseUrl('http://microservice/api/v1')
-        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter))
+        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter()))
         ->post('/healthcheck', ['test' => 'message'])
         ->json();
 

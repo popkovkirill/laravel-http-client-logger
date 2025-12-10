@@ -17,10 +17,10 @@ final class HttpLoggerMiddleware
         protected LoggerInterface $logger,
         protected FormatterInterface $formatter,
         protected array $context = []
-    ) {}
+    ) {
+    }
 
-    protected function logging(RequestInterface $request,
-        ?ResponseInterface $response = null): void
+    protected function logging(RequestInterface $request, ?ResponseInterface $response = null): void
     {
         $message = $this->formatter->getMessage($request, $response);
         $context = array_merge($this->context, $this->formatter->getContext($request, $response));
