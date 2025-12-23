@@ -2,8 +2,8 @@
 
 namespace Keerill\HttpLogger;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use Keerill\HttpLogger\Formatters\FormatterInterface;
 use Psr\Http\Message\RequestInterface;
@@ -28,6 +28,8 @@ final class HttpLoggerMiddleware
         $statusCode = $response?->getStatusCode() ?: 0;
         $isSuccessful = $statusCode >= 200 && $statusCode < 300;
 
+        $response?->getBody()->rewind();
+
         $this->logger
             ->log($isSuccessful ? LogLevel::INFO : LogLevel::ERROR, $message, $context);
     }
@@ -43,10 +45,11 @@ final class HttpLoggerMiddleware
 
     protected function onFailure(RequestInterface $request): callable
     {
-        return function (GuzzleException $exception) use ($request) {
+        return function ($exception) use ($request) {
             $response = $exception instanceof RequestException ? $exception->getResponse() : null;
             $this->logging($request, $response);
-            throw $exception;
+
+            throw Create::rejectionFor($exception);
         };
     }
 
