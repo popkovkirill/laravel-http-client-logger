@@ -2,8 +2,8 @@
 
 namespace Keerill\HttpLogger;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use Keerill\HttpLogger\Formatters\FormatterInterface;
 use Keerill\HttpLogger\Resolvers\LogLevelResolver;
@@ -34,6 +34,8 @@ final readonly class HttpLoggerMiddleware
 
         $response?->getBody()->rewind();
 
+        $response?->getBody()->rewind();
+
         $this->logger
             ->log($logLevel, $message, $context);
     }
@@ -49,10 +51,11 @@ final readonly class HttpLoggerMiddleware
 
     private function onFailure(RequestInterface $request): callable
     {
-        return function (GuzzleException $exception) use ($request) {
+        return function ($exception) use ($request) {
             $response = $exception instanceof RequestException ? $exception->getResponse() : null;
             $this->logging($request, $response);
-            throw $exception;
+
+            throw Create::rejectionFor($exception);
         };
     }
 

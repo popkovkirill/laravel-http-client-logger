@@ -1,16 +1,19 @@
 {
     "name": "keerill/laravel-http-client-logger",
-    "description": "This is my package laravel-http-client-logger",
+    "description": "Logger Request and responses HTTP client for laravel",
     "keywords": [
         "popkovkirill",
         "laravel",
-        "laravel-http-client-logger"
+        "laravel-http-client-logger",
+        "log",
+        "logging",
+        "psr3"
     ],
     "homepage": "https://github.com/keerill/laravel-http-client-logger",
     "license": "MIT",
     "authors": [
         {
-            "name": "popkovkirill",
+            "name": "Kirill Popkov",
             "email": "i@popkovkirill.ru",
             "role": "Developer"
         }
@@ -18,15 +21,15 @@
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
-        "illuminate/contracts": "^10.0||^11.0"
+        "illuminate/contracts": "^12.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^8.1.1||^7.10.0",
-        "orchestra/testbench": "^9.0.0||^8.22.0",
-        "pestphp/pest": "^2.34",
-        "pestphp/pest-plugin-arch": "^2.7",
-        "pestphp/pest-plugin-laravel": "^2.3"
+        "nunomaduro/collision": "^8.8",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -52,7 +55,6 @@
             "@composer run build",
             "@php vendor/bin/testbench serve"
         ],
-        "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
