@@ -6,35 +6,39 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use Keerill\HttpLogger\Formatters\FormatterInterface;
+use Keerill\HttpLogger\Resolvers\LogLevelResolver;
+use Keerill\HttpLogger\Resolvers\LogLevelResolverInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 
-final class HttpLoggerMiddleware
+final readonly class HttpLoggerMiddleware
 {
     public function __construct(
-        protected LoggerInterface $logger,
-        protected FormatterInterface $formatter,
-        protected array $context = []
+        private LoggerInterface $logger,
+        private FormatterInterface $formatter,
+        private array $context = [],
+        private LogLevelResolverInterface $logLevelResolver = new LogLevelResolver(),
     ) {
     }
 
-    protected function logging(RequestInterface $request, ?ResponseInterface $response = null): void
-    {
+    private function logging(
+        RequestInterface $request,
+        ?ResponseInterface $response = null
+    ): void {
         $message = $this->formatter->getMessage($request, $response);
         $context = array_merge($this->context, $this->formatter->getContext($request, $response));
 
-        $statusCode = $response?->getStatusCode() ?: 0;
-        $isSuccessful = $statusCode >= 200 && $statusCode < 300;
+        $logLevel = $this->logLevelResolver
+            ->resolve($request, $response);
 
         $response?->getBody()->rewind();
 
         $this->logger
-            ->log($isSuccessful ? LogLevel::INFO : LogLevel::ERROR, $message, $context);
+            ->log($logLevel, $message, $context);
     }
 
-    protected function onSuccess(RequestInterface $request): callable
+    private function onSuccess(RequestInterface $request): callable
     {
         return function (ResponseInterface $response) use ($request) {
             $this->logging($request, $response);
@@ -43,7 +47,7 @@ final class HttpLoggerMiddleware
         };
     }
 
-    protected function onFailure(RequestInterface $request): callable
+    private function onFailure(RequestInterface $request): callable
     {
         return function ($exception) use ($request) {
             $response = $exception instanceof RequestException ? $exception->getResponse() : null;
