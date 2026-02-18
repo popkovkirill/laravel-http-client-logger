@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-http-client-logger` will be documented in this file.
 
+## v1.3.1 - 2026-02-18
+
+### What's Changed
+
+* feat: Разные уровни логов в зависимости от кода ответа by @popkovkirill in https://github.com/popkovkirill/laravel-http-client-logger/pull/16
+
+**Full Changelog**: https://github.com/popkovkirill/laravel-http-client-logger/compare/v1.3.0...v1.3.1
+
 ## v1.1.4 - 2026-02-18
 
 feat: Разные уровни логов в зависимости от кода ответа#16
