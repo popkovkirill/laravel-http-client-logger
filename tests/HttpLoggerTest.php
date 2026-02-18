@@ -33,7 +33,8 @@ it('test logging success request', function () {
 });
 
 it('test logging warning request', function () {
-    Log::shouldReceive('log')
+    $logger = Mockery::mock(NullLogger::class)
+        ->shouldReceive('log')
         ->withArgs(function ($level, $message, $context) {
             expect($level)
                 ->toBe('warning')
@@ -52,7 +53,7 @@ it('test logging warning request', function () {
     ]);
 
     $response = Http::baseUrl('http://microservice/api/v1')
-        ->withMiddleware(new HttpLoggerMiddleware(logger(), new ContextFormatter()))
+        ->withMiddleware(new HttpLoggerMiddleware($logger->getMock(), new ContextFormatter()))
         ->post('/healthcheck', ['test' => 'message'])
         ->json();
 

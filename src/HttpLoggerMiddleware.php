@@ -34,8 +34,6 @@ final readonly class HttpLoggerMiddleware
 
         $response?->getBody()->rewind();
 
-        $response?->getBody()->rewind();
-
         $this->logger
             ->log($logLevel, $message, $context);
     }
