@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-http-client-logger` will be documented in this file.
 
+## v1.4.0 - 2026-02-18
+
+### What's Changed
+
+* feat: Поддержка Laravel 10 by @popkovkirill in https://github.com/popkovkirill/laravel-http-client-logger/pull/17
+* feat: Улучшение ContentTypeMessageFormatter by @popkovkirill in https://github.com/popkovkirill/laravel-http-client-logger/pull/18
+
+**Full Changelog**: https://github.com/popkovkirill/laravel-http-client-logger/compare/v1.3.1...v1.4.0
+
 ## v1.3.1 - 2026-02-18
 
 ### What's Changed
