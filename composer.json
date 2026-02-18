@@ -2,7 +2,7 @@
     "name": "keerill/laravel-http-client-logger",
     "description": "This is my package laravel-http-client-logger",
     "keywords": [
-        "Keerill",
+        "popkovkirill",
         "laravel",
         "laravel-http-client-logger"
     ],
@@ -10,7 +10,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "kEERill",
+            "name": "popkovkirill",
             "email": "i@popkovkirill.ru",
             "role": "Developer"
         }

@@ -33,11 +33,11 @@ it('test logging success request', function () {
         ->toBe(['data' => 'OK']);
 });
 
-it('test logging error request', function () {
+it('test logging warning request', function () {
     Log::shouldReceive('log')
         ->withArgs(function ($level, $message, $context) {
             expect($level)
-                ->toBe('error')
+                ->toBe('warning')
                 ->and($message)
                 ->toBe('POST http://microservice/api/v1/healthcheck 404: Not Found')
                 ->and($context['request']['content'])
@@ -50,6 +50,34 @@ it('test logging error request', function () {
 
     Http::fake([
         'http://microservice/api/v1/healthcheck' => Http::response(['data' => 'Not Found'], 404),
+    ]);
+
+    $response = Http::baseUrl('http://microservice/api/v1')
+        ->withMiddleware(new HttpLoggerMiddleware(logger(), new ContextFormatter()))
+        ->post('/healthcheck', ['test' => 'message'])
+        ->json();
+
+    expect($response)
+        ->toBe(['data' => 'Not Found']);
+});
+
+it('test logging error request', function () {
+    Log::shouldReceive('log')
+        ->withArgs(function ($level, $message, $context) {
+            expect($level)
+                ->toBe('error')
+                ->and($message)
+                ->toBe('POST http://microservice/api/v1/healthcheck 503: Service Unavailable')
+                ->and($context['request']['content'])
+                ->toBe(['test' => 'message'])
+                ->and($context['response']['content'])
+                ->toBe(['data' => 'Not Found']);
+
+            return true;
+        });
+
+    Http::fake([
+        'http://microservice/api/v1/healthcheck' => Http::response(['data' => 'Not Found'], 503),
     ]);
 
     $response = Http::baseUrl('http://microservice/api/v1')
