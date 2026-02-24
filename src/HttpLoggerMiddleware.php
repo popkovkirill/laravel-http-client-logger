@@ -53,7 +53,7 @@ final readonly class HttpLoggerMiddleware
             $response = $exception instanceof RequestException ? $exception->getResponse() : null;
             $this->logging($request, $response);
 
-            throw Create::rejectionFor($exception);
+            return Create::rejectionFor($exception);
         };
     }
 
