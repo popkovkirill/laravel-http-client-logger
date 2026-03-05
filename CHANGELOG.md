@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-http-client-logger` will be documented in this file.
 
+## v1.4.2 - 2026-03-05
+
+### What's Changed
+
+* fix: Исправлен форматер для Json by @popkovkirill in https://github.com/popkovkirill/laravel-http-client-logger/pull/21
+
+**Full Changelog**: https://github.com/popkovkirill/laravel-http-client-logger/compare/v1.4.1...v1.4.2
+
 ## v1.4.1 - 2026-02-24
 
 ### What's Changed
