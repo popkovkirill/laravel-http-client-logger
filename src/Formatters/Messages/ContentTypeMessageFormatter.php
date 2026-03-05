@@ -11,7 +11,7 @@ class ContentTypeMessageFormatter implements MessageFormatterInterface
         $contentType = $message->getHeader('Content-Type')[0] ?? 'unknown';
 
         return match (true) {
-            str_starts_with($contentType, 'application/json') => (new JsonMessageFormatter())->getContent($message),
+            str_contains($contentType, 'json') => (new JsonMessageFormatter())->getContent($message),
             str_starts_with($contentType, 'multipart/form-data') => (new FormDataMessageFormatter())->getContent($message),
             str_starts_with($contentType, 'application/x-www-form-urlencoded') => (new FormUrlEncodedMessageFormatter())->getContent($message),
             str_starts_with($contentType, 'text/') => (new StringMessageFormatter())->getContent($message),
