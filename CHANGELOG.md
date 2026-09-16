@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-http-client-logger` will be documented in this file.
 
+## v1.4.3 - 2026-09-16
+
+### What's Changed
+
+* build(deps): bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/popkovkirill/laravel-http-client-logger/pull/24
+* build(deps): bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/popkovkirill/laravel-http-client-logger/pull/23
+* feat: Теперь в логах отображаются все заголовки, даже если у заголовка несколько значений by @popkovkirill in https://github.com/popkovkirill/laravel-http-client-logger/pull/27
+
+**Full Changelog**: https://github.com/popkovkirill/laravel-http-client-logger/compare/v1.4.2...v1.4.3
+
 ## v1.4.2 - 2026-03-05
 
 ### What's Changed
