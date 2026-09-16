@@ -33,17 +33,17 @@ class HeadersFormatter
         $cleanedHeaders = [];
 
         foreach ($headers as $header => $values) {
-            $header = trim(strtolower($header));
+            $normalizeHeader = trim(strtolower($header));
 
-            if (! $this->isVisible($header)) {
+            if (! $this->isVisible($normalizeHeader)) {
                 continue;
             }
 
-            if (in_array($header, $this->hidden)) {
-                $values[0] = $this->stub;
+            if (in_array($normalizeHeader, $this->hidden)) {
+                $values = array_map(fn () => $this->stub, $values);
             }
 
-            $cleanedHeaders[$header] = $values[0];
+            $cleanedHeaders[$header] = count($values) == 1 ? $values[0] : $values;
         }
 
         return $cleanedHeaders;
